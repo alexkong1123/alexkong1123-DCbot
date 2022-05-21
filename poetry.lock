@@ -40,12 +40,31 @@ tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)"
 tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
 
 [[package]]
+name = "certifi"
+version = "2022.5.18.1"
+description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "chardet"
 version = "4.0.0"
 description = "Universal encoding detector for Python 2 and 3"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
+name = "charset-normalizer"
+version = "2.0.12"
+description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
+category = "main"
+optional = false
+python-versions = ">=3.5.0"
+
+[package.extras]
+unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -171,12 +190,51 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "opencc"
+version = "1.1.3"
+description = "Conversion between Traditional and Simplified Chinese"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "requests"
+version = "2.27.1"
+description = "Python HTTP for Humans."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
+
+[package.dependencies]
+certifi = ">=2017.4.17"
+charset-normalizer = {version = ">=2.0.0,<2.1.0", markers = "python_version >= \"3\""}
+idna = {version = ">=2.5,<4", markers = "python_version >= \"3\""}
+urllib3 = ">=1.21.1,<1.27"
+
+[package.extras]
+socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
+use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
+
+[[package]]
 name = "typing-extensions"
 version = "4.2.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "urllib3"
+version = "1.26.9"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+
+[package.extras]
+brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
+secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
+socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "werkzeug"
@@ -216,7 +274,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "055b7d33ac9cf508e63ade6aafc21a7f982571a25290ae7b86bdc99d2c62ac58"
+content-hash = "da7eb00bfe9cbd9997ce6b7667234e3d1ca73c95ecc9a52352d1c3ea1a1e2cf0"
 
 [metadata.files]
 aiohttp = [
@@ -266,9 +324,17 @@ attrs = [
     {file = "attrs-21.4.0-py2.py3-none-any.whl", hash = "sha256:2d27e3784d7a565d36ab851fe94887c5eccd6a463168875832a1be79c82828b4"},
     {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
 ]
+certifi = [
+    {file = "certifi-2022.5.18.1-py3-none-any.whl", hash = "sha256:f1d53542ee8cbedbe2118b5686372fb33c297fcd6379b050cca0ef13a597382a"},
+    {file = "certifi-2022.5.18.1.tar.gz", hash = "sha256:9c5705e395cd70084351dd8ad5c41e65655e08ce46f2ec9cf6c2c08390f71eb7"},
+]
 chardet = [
     {file = "chardet-4.0.0-py2.py3-none-any.whl", hash = "sha256:f864054d66fd9118f2e67044ac8981a54775ec5b67aed0441892edb553d21da5"},
     {file = "chardet-4.0.0.tar.gz", hash = "sha256:0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa"},
+]
+charset-normalizer = [
+    {file = "charset-normalizer-2.0.12.tar.gz", hash = "sha256:2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597"},
+    {file = "charset_normalizer-2.0.12-py3-none-any.whl", hash = "sha256:6881edbebdb17b39b4eaaa821b438bf6eddffb4468cf344f09f89def34a8b1df"},
 ]
 click = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
@@ -426,9 +492,31 @@ numpy = [
     {file = "numpy-1.22.2-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4a176959b6e7e00b5a0d6f549a479f869829bfd8150282c590deee6d099bbb6e"},
     {file = "numpy-1.22.2.zip", hash = "sha256:076aee5a3763d41da6bef9565fdf3cb987606f567cd8b104aded2b38b7b47abf"},
 ]
+opencc = [
+    {file = "OpenCC-1.1.3-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:d51d53270fb967211f297d976497ebed1875576502e5ceb8bb4bf86404d5fc53"},
+    {file = "OpenCC-1.1.3-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:1db67f6950fe40ab6c20c560808508a2afa049361908cf0bd39f33bdbcab77de"},
+    {file = "OpenCC-1.1.3-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:f21fe97c3d06568b31a65a9b9138d454424fb37565c9ae7105347ec8fa1ec90c"},
+    {file = "OpenCC-1.1.3-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:94d95dce79c6ba3d4143d66f854e160e07ca5be571d4cbac555f4b2ffad7f837"},
+    {file = "OpenCC-1.1.3-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:a7e7ef677c107a915f649847a9e901703b099e8dac643e34c0dee14cca0d748a"},
+    {file = "OpenCC-1.1.3-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:d3551e5ed3939129fbb8cfb244de6924892d2f950009e666f0d4e7aec53ca953"},
+    {file = "OpenCC-1.1.3-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:7b61cead7f1fba11d027804b706e087ad14da981192c7e0f51e768cbcf2ea22b"},
+    {file = "OpenCC-1.1.3-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:78cf0874896bb686f9d1b9dc612b911118db99ef96567cbf98f61a817c4312c7"},
+    {file = "OpenCC-1.1.3-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:c0a85bb12f362903241a53c767838fe09d494c4caffe12797157bdd8133b7e6e"},
+    {file = "OpenCC-1.1.3-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:2d1043e4d19ac89656b83e027f1834451ee0639d27239b579ba0b7cbb24af805"},
+    {file = "OpenCC-1.1.3-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:3aadc356b3b67dead0614fd47530351130eddf0d45b9889a5b58dd888c945640"},
+    {file = "OpenCC-1.1.3-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:48309ed913fde331f43beea36ca74252f1e279ee98d149f8509151a2252adbca"},
+]
+requests = [
+    {file = "requests-2.27.1-py2.py3-none-any.whl", hash = "sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d"},
+    {file = "requests-2.27.1.tar.gz", hash = "sha256:68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61"},
+]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
     {file = "typing_extensions-4.2.0.tar.gz", hash = "sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376"},
+]
+urllib3 = [
+    {file = "urllib3-1.26.9-py2.py3-none-any.whl", hash = "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14"},
+    {file = "urllib3-1.26.9.tar.gz", hash = "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"},
 ]
 werkzeug = [
     {file = "Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
