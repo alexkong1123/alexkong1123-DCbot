@@ -13,7 +13,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('test'):
-        await message.channel.send('testing...')
+        await message.channel.send('testing....')
 
     if message.content.startswith('test'):
         embed = discord.Embed(
