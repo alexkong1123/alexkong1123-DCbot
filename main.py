@@ -1,7 +1,5 @@
 import discord
 import keep_alive
-from discord import Embed
-import command
 
 client = discord.Client()
 
